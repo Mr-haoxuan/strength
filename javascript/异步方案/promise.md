@@ -1,5 +1,5 @@
-#  基础
-##  基本使用
+# 基础
+## 基本使用
 
 ```javascript
 const promise = new Promise(function(resolve, reject) {
@@ -14,7 +14,7 @@ const promise = new Promise(function(resolve, reject) {
 
 resolve  和  reject  的参数会传递给回调函数。
 
-##  如果  resolve  的参数是  promise
+## 如果  resolve  的参数是  promise
 
 ```javascript
 const p1 = new Promise(function (resolve, reject) {})
@@ -41,12 +41,12 @@ p2.then((result) => console.log(result)).catch((error) => console.log(error))
 // Error: fail
 ```
 
-## promise  的  then
+## promise  的  then
 1. then  的第一个参数是  resolve  时候的回调函数。第二个参数是  reject  状态的回调函数。
 2. then  返回的是一个新的  promise  实例。
 3. then  如果  return  的是一个  promise，后续的  then  会等待  promise  的执行
 
-## promise  的  catch
+## promise  的  catch
 promise  的  catch  可以既可以用来捕获  promise reject  抛出的错误，也可以捕获代码运行中的错误。
 
 catch  返回的同样是一个  promise  对象
@@ -65,8 +65,8 @@ p.then((val) => console.log('fulfilled:', val)).then(null, (err) =>
 )
 ```
 
-### promise  错误特性
-#### promise  中在已经  resolve  后才抛出的错误不会被  catch  捕获
+### promise  错误特性
+#### promise  中在已经  resolve  后才抛出的错误不会被  catch  捕获
 
 ```javascript
 new Promise((resolve, reject) => {
@@ -81,11 +81,11 @@ new Promise((resolve, reject) => {
 
 以上代码的  error  是在  resolve  之后产生的。所以  catch  已经无法捕获到错误了。
 
-####  错误具有冒泡的特性
+#### 错误具有冒泡的特性
 
 错误会一直向后传递，最终被一个  catch  捕获为止。
 
-####  如果没有  catch promise  对象抛出的错误不会传递到外层
+#### 如果没有  catch promise  对象抛出的错误不会传递到外层
 
 ```javascript
 const test = () => {
@@ -119,7 +119,7 @@ new Promise((res, jes) => {
 
 一般建议  promise  后面总是有个  catch  方法。
 
-# Promise.finally()
+# Promise.finally()
 
 不管  Promise  最后状态如何总会执行。于  ES2018  引入。
 finally  不接受任何参数。所以没有办法知道  promise  最终是  resolve  还是  reject。
@@ -184,7 +184,7 @@ Promise.reject(3).then(
 Promise.reject(3).finally(() => {})
 ```
 
-# Promise.all
+# Promise.all
 将多个  promise  实例包装成一个新的  Promise  实例。接受一个数组作为参数，如果数组的成员不是  promise  对象则会先调用以下  Promise.resolve  将其转换成  promise  对象，然后再进一步处理。
 只有当所有的  Promise  对象全部  resolve  或者有一个  reject  后。Promise.all  才会调用后面的回调函数。
 **Promise.all  也可以接受非数组参数，但是要求其必须有  Iterator  接口且返回的必须是  Promise  对象**
@@ -207,11 +207,11 @@ Promise.all([p1, p2])
 // ['hello', Error: 报错了]
 ```
 
-# Promise.race
+# Promise.race
 基本属性和  promise all  一样
 **不同点**
 其中只要有一个  promise  改变状态，那么  promise race  的状态就会改变。
-# Promise.allSettled
+# Promise.allSettled
 基本属性和  promise all  一样
 **不同点**
 1.  于  ES2020  引入
@@ -229,13 +229,13 @@ allSettled.then((res) => {
 ```
 
 有时候我们并不关心异步操作的结果，只关心这些操作是否已经结束，那么  allSettled  就会很实用。
-# Promise.any
+# Promise.any
 基本属性和  promise all  相同
 **不同点**
 1.  截至  2020 06/06  他还是一个提案。
 2.  只要有一个  promise  参数  fulfilled  那么  promise all  就会变成  fulfilled。只有所有的参数  promise  都  reject promise any  才会变成  reject
 promise any  和  promise race  很像。只有一点不同：不会因为某个  promise  参数  rejected  而结束。
-# Promise.resolve()
+# Promise.resolve()
 **如果参数是非  promise  对象**
 可以将现有的对象转换成  promise  对象
 
@@ -290,10 +290,10 @@ console.log(1)
 
 setTimeout  是在下一轮事件循环开始的时候执行。
 以上代码会输出  1 2 3
-# Promise.reject
+# Promise.reject
 基本情况和  Promise.resolve  相同。
 **不同点**
 1.  返回的  promise  的状态是  reject
 2.  参数会原封不动的作为  reject  的理由变成后续方法的参数。
-# Promise.try
+# Promise.try
 无论函数是同步还是异步，但是想用  promise  来处理。就可以使用  Promise try。此时就可以使用  then  来指定下一步流程，用 catch  来捕获错误。
